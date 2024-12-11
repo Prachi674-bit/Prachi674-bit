@@ -1,0 +1,22 @@
+#include <iostream>
+#include <map>
+#include <string>
+using namespace std;
+int main() {
+ std::map<std::string, int> statePopulation;
+ statePopulation["California"] = 39538223;
+ statePopulation["Texas"] = 29145505;
+ statePopulation["Florida"] = 21538187;
+ statePopulation["New York"] = 20201249;
+ statePopulation["Pennsylvania"] = 13002700;
+ std::string stateName;
+ std::cout << "Enter the name of a state: ";
+ std::getline(std::cin, stateName);
+ auto it = statePopulation.find(stateName);
+ if (it != statePopulation.end()) {
+ std::cout << "The population of " << stateName << " is " << it->second << "." << std::endl;
+ } else {
+ std::cout << "State not found in the database." << std::endl;
+ }
+ return 0;
+}
