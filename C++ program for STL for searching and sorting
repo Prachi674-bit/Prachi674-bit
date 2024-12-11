@@ -1,0 +1,140 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+using namespace std;
+struct Person {
+ string name;
+ string dob; 
+ string telephone;
+ Person(string n, string d, string t) : name(n), 
+dob(d), telephone(t) {}
+};
+struct Item {
+ int itemCode;
+ string name;
+ double cost;
+ int quantity;
+ Item(int code, string n, double c, int q) : 
+itemCode(code), name(n), cost(c), quantity(q) {}
+};
+void displayPersons(const vector<Person>& 
+persons) {
+ cout << "Persons:\n";
+ for (const auto& person : persons) {
+ cout << "Name: " << person.name << ", 
+DOB: " << person.dob << ", Telephone: " << 
+person.telephone << endl;
+ }
+}
+void displayItems(const vector<Item>& items) {
+ cout << "Items:\n";
+ for (const auto& item : items) {
+ cout << "Item Code: " << item.itemCode 
+<< ", Name: " << item.name << ", Cost: " << 
+item.cost << ", Quantity: " << item.quantity << 
+endl;
+ }
+}
+bool comparePersons(const Person& a, const 
+Person& b) {
+ return a.name < b.name;
+}
+bool compareItems(const Item& a, const Item& 
+b) {
+ return a.itemCode < b.itemCode;
+}
+int main() {
+ vector<Person> persons;
+ vector<Item> items;
+ persons.push_back(Person("Alice", "1990-01-
+01", "123-456-7890"));
+ persons.push_back(Person("Bob", "1985-05-
+15", "987-654-3210"));
+ persons.push_back(Person("Charlie", "1992-
+03-30", "555-555-5555"));
+ items.push_back(Item(101, "Laptop", 999.99, 
+10));
+ items.push_back(Item(102, "Smartphone", 
+499.99, 20));
+ items.push_back(Item(103, "Tablet", 299.99, 
+15));
+ displayPersons(persons);
+ displayItems(items);
+ sort(persons.begin(), persons.end(), 
+comparePersons);
+sort(items.begin(), items.end(), 
+
+compareItems);
+
+ cout << "\nSorted Records:\n";
+
+ displayPersons(persons);
+
+ displayItems(items);
+
+ string searchName;
+
+ cout << "\nEnter name to search for a 
+
+Person: ";
+
+ cin >> searchName;
+
+ auto it = find_if(persons.begin(), 
+
+persons.end(), [&searchName](const Person& 
+
+p) {
+
+ return p.name == searchName;
+
+ });
+
+ if (it != persons.end()) {
+
+ cout << "Found Person: " << it->name 
+
+<< ", DOB: " << it->dob << ", Telephone: " 
+
+<< it->telephone << endl;
+
+ } else {
+
+ cout << "Person not found!" << endl;
+
+ }
+
+ int searchCode;
+
+ cout << "\nEnter item code to search for an 
+
+Item: ";
+
+ cin >> searchCode;
+
+ auto itItem = find_if(items.begin(), 
+
+items.end(), [searchCode](const Item& item) {
+
+ return item.itemCode == searchCode;
+
+ }
+
+ );
+
+ if (itItem != items.end()) {
+
+ cout << "Found Item: " << itItem->name 
+
+<< ", Cost: " << itItem->cost << ", Quantity: " 
+
+<< itItem->quantity << endl;
+
+ } else {
+
+ cout << "Item not found!" << endl;
+
+ }
+
+ return 0;}
