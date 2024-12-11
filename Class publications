@@ -1,0 +1,152 @@
+#include <iostream>
+#include <string>
+#include <stdexcept>
+#include <limits>
+using namespace std;
+class Publication {
+protected:
+ string title;
+ double price;
+public:
+ Publication(const string& title, double price) 
+: title(title), price(price) {}
+ virtual void display() const {
+ cout << "Title: " << title << ", Price: Ru" 
+<< price << endl;
+ }
+};
+class Book : public Publication {
+private:
+ int pageCount;
+public:
+ Book(const string& title, double price, int 
+pageCount)
+ : Publication(title, price), 
+pageCount(pageCount) {}
+ void display() const override {
+ Publication::display();
+ cout << "Page Count: " << pageCount << 
+endl;
+ }
+};
+class Tape : public Publication {
+private:
+ int playingTime;
+public:
+ Tape(const string& title, double price, int 
+playingTime)
+ : Publication(title, price), 
+playingTime(playingTime) {}
+ void display() const override {
+ Publication::display();
+ cout << "Playing Time: " << playingTime 
+<< " minutes" << endl;
+ }
+};
+void getPublicationData(string& title, double& 
+
+price) {
+
+ cout << "Enter the title: ";
+
+ getline(cin, title);
+
+ cout << "Enter the price: ";
+
+ cin >> price;
+
+ 
+
+cin.ignore(numeric_limits<streamsize>::max(), 
+
+'\n');
+
+}
+
+int main() {
+
+ string title;
+
+ double price;
+
+ int pageCount, playingTime;
+
+ cout << "Enter details for a Book:" << endl;
+
+ getPublicationData(title, price);
+
+ try {
+
+ cout << "Enter the page count: ";
+
+ cin >> pageCount;
+
+ if (cin.fail()) throw runtime_error("Invalid 
+
+input");
+
+ 
+
+cin.ignore(numeric_limits<streamsize>::max(), 
+
+'\n');
+
+ Book book(title, price, pageCount);
+
+ book.display();
+
+ } catch (const exception&) {
+
+ cout << "Invalid input for page count. 
+
+Setting page count to zero." << endl;
+
+ Book book(title, price, 0);
+
+ book.display();
+
+ }
+
+ cout << "\nEnter details for a Tape:" << 
+
+endl;
+
+ getPublicationData(title, price);
+
+ try {
+
+ cout << "Enter the playing time in minutes: 
+
+";
+
+ cin >> playingTime;
+
+ if (cin.fail()) throw runtime_error("Invalid 
+
+input");
+
+ 
+
+cin.ignore(numeric_limits<streamsize>::max(), 
+
+'\n');
+
+ Tape tape(title, price, playingTime);
+
+ tape.display();
+
+ } catch (const exception&) {
+
+ cout << "Invalid input for playing time. 
+
+Setting playing time to zero." << endl;
+
+ Tape tape(title, price, 0);
+
+ tape.display();
+
+ }
+
+ return 0;
+
+}
