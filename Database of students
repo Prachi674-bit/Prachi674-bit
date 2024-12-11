@@ -1,0 +1,138 @@
+#include <iostream>
+#include <string>
+using namespace std;
+class Student {
+private:
+ string name;
+ int rollNumber;
+ string className;
+ char division;
+ string dateOfBirth;
+ string bloodGroup;
+ string contactAddress;
+ string telephoneNumber;
+ string drivingLicenseNumber;
+ static int totalStudents;
+public:
+ Student() : rollNumber(0), division('A') {
+ totalStudents++;
+ }
+ Student(string name, int rollNumber, string 
+className, char division,
+ string dob, string bloodGroup, string 
+address,
+ string phone, string license) 
+ : name(name), rollNumber(rollNumber), 
+className(className), 
+ division(division), dateOfBirth(dob), 
+bloodGroup(bloodGroup), 
+ contactAddress(address), 
+telephoneNumber(phone), 
+ drivingLicenseNumber(license) {
+ totalStudents++;
+ }
+ Student(const Student &other) {
+ name = other.name;
+ rollNumber = other.rollNumber;
+ className = other.className;
+ division = other.division;
+ dateOfBirth = other.dateOfBirth;
+ bloodGroup = other.bloodGroup;
+ contactAddress = other.contactAddress;
+ telephoneNumber = 
+other.telephoneNumber;
+ drivingLicenseNumber = 
+other.drivingLicenseNumber;
+totalStudents++;
+
+ }
+
+ ~Student() {
+
+ totalStudents--;
+
+ }
+
+ static int getTotalStudents() {
+
+ return totalStudents;
+
+ }
+
+ inline string getName() const {
+
+ return name;
+
+ }
+
+ friend class StudentDatabase;
+
+ void displayInfo() const {
+
+ cout << "Name: " << name << "\n"
+
+ << "Roll Number: " << rollNumber 
+
+<< "\n"
+
+ << "Class: " << className << "\n"
+
+ << "Division: " << division << "\n"
+
+ << "Date of Birth: " << dateOfBirth 
+
+<< "\n"
+
+ << "Blood Group: " << bloodGroup 
+
+<< "\n"
+
+ << "Contact Address: " << 
+
+contactAddress << "\n"
+
+ << "Telephone Number: " << 
+
+telephoneNumber << "\n"
+
+ << "Driving License Number: " << 
+
+drivingLicenseNumber << "\n";
+
+ }
+
+};
+
+int Student::totalStudents = 0;
+
+class StudentDatabase {
+
+public:
+
+ void printTotalStudents() {
+
+ cout << "Total Students: " << 
+
+Student::getTotalStudents() << endl;
+
+ }
+
+};
+
+int main() {
+
+ Student s1("John Doe", 101, "10th", 'A', 
+
+"01/01/2005", "O+", "123 Main St", 
+
+"1234567890", "DL12345");
+
+ s1.displayInfo();
+
+ StudentDatabase db;
+
+ db.printTotalStudents();
+
+ return 0;
+
+}
